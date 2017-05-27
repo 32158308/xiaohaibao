@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试</title>
+    <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+    这是一个测试页面
+    <script>
+
+        $.ajax({
+            url : '/api/test/run?url=1',
+            type : 'get',
+            data : {data : 100},
+            success : function(data){
+                $('body').html(JSON.stringify(data));
+            }
+        });
+
+    </script>
+</body>
+</html>
