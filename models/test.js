@@ -7,7 +7,7 @@ let Test = sequelize.define('test',{
     }
 });
 
-Test.sync({force:true}).then(function(){
+Test.sync().then(function(){
     // 已创建数据表
     return Test.create({
         firstName : 'Join'
