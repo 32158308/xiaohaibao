@@ -25,8 +25,9 @@ let Activity = sequelize.define('activity', {
     watch: Sequelize.INTEGER
 });
 
-
+// 一个用户可以发布多个活动
 User.hasMany(Activity);
+// 一个活动类型，可以被多个活动引用
 ActivityType.hasMany(Activity);
 
 module.exports = Activity;
