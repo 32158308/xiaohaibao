@@ -49,7 +49,7 @@ let sequelize = require('./models/sequelize');
 let ActivityType = require('./models/activityType');
 let User = require('./models/user')
 let Activity = require('./models/activity');
-// sequelize.sync({force:true});
+sequelize.sync({force:true});
 
 // User.findOrCreate({
 //     where: {username: 'zhang'}, 
