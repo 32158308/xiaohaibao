@@ -46,10 +46,18 @@ app.use(function(err, req, res, next) {
 
 // 导入models
 let sequelize = require('./models/sequelize');
-let ActivityType = require('./models/ActivityType');
-let User = require('./models/User')
-let Activity = require('./models/Activity');
+let ActivityType = require('./models/activityType');
+let User = require('./models/user')
+let Activity = require('./models/activity');
 sequelize.sync({force:true});
+
+// User.findOrCreate({
+//     where: {username: 'zhang'}, 
+//     defaults: {password: '123456'}
+// }).spread(function(user, created) {
+//     console.log(user.get({plain: true}));
+//     console.log(created);
+// });
 
 
 

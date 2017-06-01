@@ -1,7 +1,7 @@
 let Sequelize = require('sequelize');
 let sequelize = require('./sequelize');
-let User = require('./User');
-let ActivityType = require('./ActivityType');
+let User = require('./user');
+let ActivityType = require('./activityType');
 
 let Activity = sequelize.define('activity', {
     // 标题

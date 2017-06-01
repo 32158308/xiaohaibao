@@ -5,16 +5,25 @@
     <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
-    这是一个测试页面
+    <form>
+        注册：<span></span><br/>
+        用户名：<input type="text" name="username" /><br/>
+        密码：<input type="password" name="password" /><br/>
+        <input id="submit" type="button" value="注册" />
+    </form>
     <script>
+        $('#submit').click(function(){
+            var data = $('form').serialize();
 
-        $.ajax({
-            url : '/api/test/run?url=1',
-            type : 'get',
-            data : {data : 100},
-            success : function(data){
-                $('body').html(JSON.stringify(data));
-            }
+            $.post('user/register',data,function(data){
+                if(data.success){
+                    alert(data.msg);
+                    $('form')[0].reset();
+                }else{
+                    alert(data.error.message);
+                }
+            });
+            
         });
 
     </script>

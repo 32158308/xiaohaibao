@@ -15,11 +15,18 @@ class UserService{
     }
 
     register(user){
-        User.findOrCreate();
+        User.findOrCreate({
+            where: {username: user.username}, 
+            defaults: {password: '123456'}
+        }).spread(function(user, created) {
+            console.log(user.get({plain: true}));
+            console.log(created);
+        });
+
     }
 
-    modifyPassword(){
-        
+    modify(){
+
     }
 
 }
