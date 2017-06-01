@@ -7,5 +7,6 @@ var Project = sequelize.define('project', {
     firstName : {type:Sequelize.STRING, field:'first_name'}
 });
 
+Project.belongsTo(ActivityType);
 
 Project.sync({force: true});
