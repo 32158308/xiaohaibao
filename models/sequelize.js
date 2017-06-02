@@ -1,6 +1,6 @@
 let Sequelize = require('sequelize');
 
-let sequelize = new Sequelize('xiaohaibao','root','568399',{
+let sequelize = new Sequelize('xiaohaibao','xiaohaibao','568399',{
     host : 'localhost',
     dialect : 'mysql',
     poll : {
