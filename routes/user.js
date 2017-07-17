@@ -45,7 +45,8 @@ router.post('/login', function(req, response, next){
             try {
                 const parsedData = JSON.parse(rawData);
                 console.log(parsedData);
-                // 
+                // 返回数据
+                res.json('登录成功');
             } catch (e) {
                 console.error(e.message);
             }
