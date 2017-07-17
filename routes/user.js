@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var https = require('https');
 
+let WXBizDataCrypt = require('../wx/WXBizDataCrypt');
 let User = require('../models/user');
 
 router.get('/', function(req, res, next) {
@@ -36,15 +37,17 @@ router.post('/register', function(req, res, next){
 
 // 根据小程序的登录凭证（code），获取session_key
 router.post('/wxlogin', function(req, response, next){
-    // https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
-    https.get('https://api.weixin.qq.com/sns/jscode2session?appid='+global.appInfo.appID+'&secret='+global.appInfo.appSecret+'&js_code='+req.body.code+'&grant_type=authorization_code',(res)=>{
+    // 调用微信接口
+    https.get('https://api.weixin.qq.com/sns/jscode2session?appid='+global.appInfo.appId+'&secret='+global.appInfo.appSecret+'&js_code='+req.body.code+'&grant_type=authorization_code',(res)=>{
         res.setEncoding('utf8');
         let rawData = '';
         res.on('data', (chunk) => { rawData += chunk; });
         res.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
+                // 获取到的session_key 和 openId 
                 console.log(parsedData);
+                // 将数据存如session
                 // 返回数据
                 response.json('登录成功');
             } catch (e) {
@@ -52,6 +55,18 @@ router.post('/wxlogin', function(req, response, next){
             }
         });
     });
+});
+
+// 根据小程序中获取的用户信息，对服务端进行登录
+router.post('/login', function(req, res, next){
+    // 解密获取unionId
+    var sessionKey = null;// 从session中获取session_key
+    var encryptedData = req.body.encryptedData; // 从参数中获取encryptedData
+    var iv = req.body.iv; // 从参数中获取iv
+    var pc = new WXBizDataCrypt(global.appInfo.appId, sessionKey);
+    var data = pc.decryptData(encryptedData , iv);
+    // 查询该unionId，如果存在则将用户信息存入session
+    // 如果不存在，则对unionId进行保存
 });
 
 module.exports = router;
