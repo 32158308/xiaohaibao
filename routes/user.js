@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var https = require('https');
 
 let User = require('../models/user');
 
@@ -31,6 +32,25 @@ router.post('/register', function(req, res, next){
 
     });
     
+});
+
+// 根据小程序的登录凭证（code），获取session_key
+router.post('/login', function(req, res, next){
+    // https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
+    console.log('enter');
+    https.get('https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code',(res)=>{
+        res.setEncoding('utf8');
+        let rawData = '';
+        res.on('data', (chunk) => { rawData += chunk; });
+        res.on('end', () => {
+            try {
+                const parsedData = JSON.parse(rawData);
+                console.log(parsedData);
+            } catch (e) {
+                console.error(e.message);
+            }
+        });
+    });
 });
 
 module.exports = router;

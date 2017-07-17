@@ -43,6 +43,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// 小程序的appID
+global.appInfo = {
+    appID : 'wxebb04b7d21890f11',
+    appSecret : ''
+}
+
 
 // 导入models
 let sequelize = require('./models/sequelize');

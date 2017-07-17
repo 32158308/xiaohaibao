@@ -15,15 +15,16 @@
         $('#submit').click(function(){
             var data = $('form').serialize();
 
-            $.post('user/register',data,function(data){
-                if(data.success){
-                    alert(data.msg);
-                    $('form')[0].reset();
-                }else{
-                    alert(data.error.message);
-                }
-            });
+            // $.post('user/register',data,function(data){
+            //     if(data.success){
+            //         alert(data.msg);
+            //         $('form')[0].reset();
+            //     }else{
+            //         alert(data.error.message);
+            //     }
+            // });
             
+            $.post('user/login',function(){});
         });
 
     </script>
