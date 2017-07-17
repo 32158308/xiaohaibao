@@ -46,7 +46,7 @@ app.use(function(err, req, res, next) {
 // 小程序的appID
 global.appInfo = {
     appID : 'wxebb04b7d21890f11',
-    appSecret : ''
+    appSecret : 'a2eec08d2acfdf0cccd6f32fce6f6265'
 }
 
 
