@@ -35,7 +35,7 @@ router.post('/register', function(req, res, next){
 });
 
 // 根据小程序的登录凭证（code），获取session_key
-router.post('/login', function(req, response, next){
+router.post('/wxlogin', function(req, response, next){
     // https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
     https.get('https://api.weixin.qq.com/sns/jscode2session?appid='+global.appInfo.appID+'&secret='+global.appInfo.appSecret+'&js_code='+req.body.code+'&grant_type=authorization_code',(res)=>{
         res.setEncoding('utf8');
