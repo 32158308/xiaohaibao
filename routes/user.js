@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var https = require('https');
+var uuid = require('uuid');
 
 let WXBizDataCrypt = require('../wx/WXBizDataCrypt');
 let User = require('../models/user');
@@ -47,9 +48,11 @@ router.post('/wxlogin', function(req, response, next){
                 const parsedData = JSON.parse(rawData);
                 // 获取到的session_key 和 openId 
                 console.log(parsedData);
-                // 将数据存如session
+                // 生成UUID当作session的key值
+                var uuidStr = uuid.v1();
+                // 将数据存入session
                 // 返回数据
-                response.json('登录成功');
+                response.json(uuidStr);
             } catch (e) {
                 console.error(e.message);
             }
