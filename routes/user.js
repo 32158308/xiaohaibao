@@ -35,10 +35,9 @@ router.post('/register', function(req, res, next){
 });
 
 // 根据小程序的登录凭证（code），获取session_key
-router.post('/login', function(req, res, next){
+router.get('/login', function(req, response, next){
     // https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
-    console.log('enter');
-    https.get('https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code',(res)=>{
+    https.get('https://api.weixin.qq.com/sns/jscode2session?appid='+global.appInfo.appID+'&secret='+global.appInfo.appSecret+'&js_code='+req.body.code+'&grant_type=authorization_code',(res)=>{
         res.setEncoding('utf8');
         let rawData = '';
         res.on('data', (chunk) => { rawData += chunk; });
@@ -46,6 +45,7 @@ router.post('/login', function(req, res, next){
             try {
                 const parsedData = JSON.parse(rawData);
                 console.log(parsedData);
+                // 
             } catch (e) {
                 console.error(e.message);
             }
