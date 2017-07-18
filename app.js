@@ -28,13 +28,12 @@ app.use(session({
     name: 'xiaohaibao',
     cookie: {maxAge: 1000*20},
     resave: true,
-    saveUninitialized: true,
-    rolling: true
+    saveUninitialized: false
 }));
-app.use(function(req, res, next) {
-    res.locals.user = req.session.user || null;
-    next();
-});
+// app.use(function(req, res, next) {
+//     res.locals.user = req.session.user || null;
+//     next();
+// });
 
 // 加载路由控制
 var index = require('./routes/index');
