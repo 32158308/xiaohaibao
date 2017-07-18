@@ -50,7 +50,9 @@ router.post('/wxlogin', function(req, response, next){
                 console.log(parsedData);
                 // 生成UUID当作session的key值
                 var uuidStr = uuid.v1();
+                req.session.user = {};
                 // 将数据存入session
+                req.session.user[uuidStr] = '123456';
                 // 返回数据
                 response.json(uuidStr);
             } catch (e) {
@@ -58,6 +60,11 @@ router.post('/wxlogin', function(req, response, next){
             }
         });
     });
+});
+
+// 测试用，获取session中的user
+router.get('/getSessionUser', function(req, res, next){
+    res.json(req.session.user);
 });
 
 // 根据小程序中获取的用户信息，对服务端进行登录
