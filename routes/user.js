@@ -53,6 +53,8 @@ router.post('/wxlogin', function(req, response, next){
                 req.session.user = {};
                 // 将数据存入session
                 req.session.user[uuidStr] = '123456';
+                console.log(req.session);
+                console.log(req.session.user);
                 // 返回数据
                 response.json(uuidStr);
             } catch (e) {
