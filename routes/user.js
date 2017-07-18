@@ -66,6 +66,8 @@ router.post('/wxlogin', function(req, response, next){
 
 // 测试用，获取session中的user
 router.get('/getSessionUser', function(req, res, next){
+    console.log('-----------------');
+    console.log(req.session.user);
     res.json(req.session.user);
 });
 
