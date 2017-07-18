@@ -39,6 +39,8 @@ router.post('/register', function(req, res, next){
 // 根据小程序的登录凭证（code），获取session_key
 router.get('/wxlogin', function(req, response, next){
     console.log(req.headers);
+    var wxcode = req.headers['X-WX-CODE'];
+    console.log(wxcode);
     // 调用微信接口
     https.get('https://api.weixin.qq.com/sns/jscode2session?appid='+global.appInfo.appId+'&secret='+global.appInfo.appSecret+'&js_code='+req.body.code+'&grant_type=authorization_code',(res)=>{
         res.setEncoding('utf8');
@@ -54,8 +56,8 @@ router.get('/wxlogin', function(req, response, next){
                 req.session.user = {};
                 // 将数据存入session
                 req.session.user[uuidStr] = '123456';
-                console.log(req.session);
-                console.log(req.session.user);
+                // console.log(req.session);
+                // console.log(req.session.user);
                 // 返回数据
                 response.json(uuidStr);
             } catch (e) {
