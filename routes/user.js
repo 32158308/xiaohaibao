@@ -45,6 +45,7 @@ router.get('/wxlogin', function(req, response, next){
     console.log(wxCode);
     console.log(wxIv);
     console.log(wxEncryptedData);
+    console.log('========='+req['x-wx-code']);
     // 调用微信接口
     https.get('https://api.weixin.qq.com/sns/jscode2session?appid='+global.appInfo.appId+'&secret='+global.appInfo.appSecret+'&js_code='+wxCode+'&grant_type=authorization_code',(res)=>{
         res.setEncoding('utf8');
@@ -59,9 +60,7 @@ router.get('/wxlogin', function(req, response, next){
                 var uuidStr = uuid.v1();
                 req.session.user = {};
                 // 将数据存入session
-                req.session.user[uuidStr] = '123456';
-                // console.log(req.session);
-                // console.log(req.session.user);
+                req.session.user[uuidStr] = parsedData.session_key+parsedData.openId;
                 // 返回数据
                 response.json(uuidStr);
             } catch (e) {

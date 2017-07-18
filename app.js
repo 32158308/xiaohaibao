@@ -5,7 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
+// 使用mysql存储session
+var MySQLStore = require('express-mysql-session')(session);
+var options = {
+  host: 'localhost',
+  port: 3306,
+  user: 'xiaohaibao',
+  password: '568399',
+  database: 'xiaohaibao',
+  checkExpirationInterval: 1000*20,
+  createDatabaseTable: true
+};
+var sessionStore = new MySQLStore(options);
 
 
 var app = express();
@@ -26,14 +37,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'xiaohaibao_cookie_secret',
     name: 'xiaohaibao',
-    cookie: {maxAge: 1000*20},
-    resave: true,
+    store: sessionStore,
+    resave: false,
     saveUninitialized: false
 }));
-// app.use(function(req, res, next) {
-//     res.locals.user = req.session.user || null;
-//     next();
-// });
 
 // 加载路由控制
 var index = require('./routes/index');
