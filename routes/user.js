@@ -38,7 +38,7 @@ router.post('/register', function(req, res, next){
 
 // 根据小程序的登录凭证（code），获取session_key
 router.get('/wxlogin', function(req, response, next){
-    console.log(req.headers);
+    console.log(typeof req.headers);
     var wxcode = req.headers['X-WX-CODE'];
     console.log(wxcode);
     // 调用微信接口
