@@ -38,7 +38,7 @@ router.post('/register', function(req, res, next){
 
 // 根据小程序的登录凭证（code），获取session_key
 router.get('/wxlogin', function(req, response, next){
-    console.log(req.sessionID);
+    console.log(req.session.cookie);
     // console.log(typeof req.headers);
     var wxCode = req.headers['x-wx-code'];
     var wxEncryptedData = req.headers['x-wx-encrypted-data'];
@@ -63,7 +63,7 @@ router.get('/wxlogin', function(req, response, next){
                 req.session.user[uuidStr] = parsedData.session_key+parsedData.openId;
                 req.session.save();
                 // 返回数据
-                response.json(req.sessionID);
+                response.json(req.session.cookie);
             } catch (e) {
                 console.error(e.message);
             }
