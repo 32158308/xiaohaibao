@@ -37,7 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 设置session
 app.use(session({
     secret: 'xiaohaibao_cookie_secret',
-    name: 'xiaohaibao',
+    name: 'connect.sid',
+    key:'connect.sid',
     store: sessionStore,
     resave: false,
     saveUninitialized: false
