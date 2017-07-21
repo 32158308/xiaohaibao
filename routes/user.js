@@ -74,6 +74,7 @@ router.get('/wxlogin', function(req, response, next){
 // 测试用，获取session中的user
 router.get('/getSessionUser', function(req, res, next){
     console.log('-----------------');
+    console.log(req.sessionID);
     console.log(req.session.id);
     res.json(req.session.id);
 });
