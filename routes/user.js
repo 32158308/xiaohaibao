@@ -74,9 +74,8 @@ router.get('/wxlogin', function(req, response, next){
 // 测试用，获取session中的user
 router.get('/getSessionUser', function(req, res, next){
     console.log('-----------------');
-    console.log(req.sessionID);
-    console.log(req.cookies.JSSESSIONID);
-    res.json(req.cookies.JSESSIONID);
+    console.log(req.session.id);
+    res.json(req.session.id);
 });
 
 // 根据小程序中获取的用户信息，对服务端进行登录
