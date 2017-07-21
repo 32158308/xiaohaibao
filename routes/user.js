@@ -62,6 +62,7 @@ router.get('/wxlogin', function(req, response, next){
                 req.session.user = {};
                 // 将数据存入session
                 req.session.user[uuidStr] = parsedData.session_key+parsedData.openId;
+                req.session.save();
                 // 返回数据
                 response.json(uuidStr);
             } catch (e) {
