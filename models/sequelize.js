@@ -1,7 +1,8 @@
-let Sequelize = require('sequelize');
+var Sequelize = require('sequelize');
+var dbConfig = require('../databaseConfig');
 
-let sequelize = new Sequelize('xiaohaibao','xiaohaibao','568399',{
-    host : 'localhost',
+let sequelize = new Sequelize(dbConfig.database,dbConfig.user,dbConfig.password,{
+    host : dbConfig.host,
     dialect : 'mysql',
     poll : {
         max : 5,

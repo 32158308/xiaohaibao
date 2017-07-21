@@ -38,6 +38,7 @@ router.post('/register', function(req, res, next){
 
 // 根据小程序的登录凭证（code），获取session_key
 router.get('/wxlogin', function(req, response, next){
+    console.log(req.session);
     // console.log(typeof req.headers);
     var wxCode = req.headers['x-wx-code'];
     var wxEncryptedData = req.headers['x-wx-encrypted-data'];

@@ -6,13 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 // 使用mysql存储session
+var dbConfig = require('./databaseConfig');
 var MySQLStore = require('express-mysql-session')(session);
 var options = {
-  host: 'localhost',
-  port: 3306,
-  user: 'xiaohaibao',
-  password: '568399',
-  database: 'xiaohaibao',
+  host: dbConfig.host,
+  port: dbConfig.port,
+  user: dbConfig.user,
+  password: dbConfig.password,
+  database: dbConfig.database,
   checkExpirationInterval: 1000*20,
   createDatabaseTable: true
 };
