@@ -14,7 +14,8 @@ var options = {
   user: dbConfig.user,
   password: dbConfig.password,
   database: dbConfig.database,
-  checkExpirationInterval: 1000*20,
+  checkExpirationInterval: 1000*30, //清除过期会话的时间
+  expiration: 1000*20, // 会话的最大时间
   createDatabaseTable: true
 };
 var sessionStore = new MySQLStore(options);
@@ -36,10 +37,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 设置session
 app.use(session({
-    secret: 'xiaohaibao_cookie_secret',
-    name: 'xiaohaibao',
-    store: sessionStore,
-    resave: false,
+    secret: 'xiaohaibao_cookie_secret', 
+    name: 'sid',
+    store: sessionStore, // 使用mysql存储session
+    resave: true, // 每次请求访问，都重新保存session
     saveUninitialized: false
 }));
 
@@ -68,10 +69,10 @@ app.use(function(err, req, res, next) {
 });
 
 // 小程序的appID
-global.appInfo = {
-    appId : 'wxebb04b7d21890f11',
-    appSecret : 'a2eec08d2acfdf0cccd6f32fce6f6265'
-}
+// global.appInfo = {
+//     appId : 'wxebb04b7d21890f11',
+//     appSecret : 'a2eec08d2acfdf0cccd6f32fce6f6265'
+// }
 
 
 // 导入models
