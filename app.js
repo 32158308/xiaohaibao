@@ -14,8 +14,8 @@ var options = {
   user: dbConfig.user,
   password: dbConfig.password,
   database: dbConfig.database,
-  checkExpirationInterval: 1000*30, //清除过期会话的时间
-  expiration: 1000*20, // 会话的最大时间
+  checkExpirationInterval: 1000*60*60*24*21, //清除过期会话的时间
+  expiration: 1000*60*60*24*20, // 会话的最大时间
   createDatabaseTable: true
 };
 var sessionStore = new MySQLStore(options);
@@ -80,7 +80,8 @@ let sequelize = require('./models/sequelize');
 let ActivityType = require('./models/activityType');
 let User = require('./models/user')
 let Activity = require('./models/activity');
-sequelize.sync({force:true});
+sequelize.sync();
+// sequelize.sync({force:true});
 
 // User.findOrCreate({
 //     where: {username: 'zhang'}, 

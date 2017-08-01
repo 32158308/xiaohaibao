@@ -3,9 +3,9 @@ var router = express.Router();
 var https = require('https');
 var uuid = require('uuid');
 // 小程序加密解密包
-var WXBizDataCrypt = require('../wx/WXBizDataCrypt');
+// var WXBizDataCrypt = require('../wx/WXBizDataCrypt');
 var wxConfig = require('../wxConfig');
-var User = require('../models/user');
+var userService = require('../services/UserService').getInstance();
 
 router.get('/', function(req, res, next) {
     res.send('respond with a resource');
@@ -54,18 +54,12 @@ router.get('/wxlogin', function(req, response, next){
                 const parsedData = JSON.parse(rawData);
                 // 获取到的session_key 和 openId 
                 console.log(parsedData);
-                // 生成UUID当作session的key值（不使用uuid，直接使用session）
-                // var uuidStr = uuid.v1();
-                // req.session.user = {};
-                // 将数据存入session
-                req.session.user = parsedData;
-                // 解密获取unionId（个人版无该字段）
-                // var pc = new WXBizDataCrypt(wxConfig.appId, parsedData.session_key);
-                // var data = pc.decryptData(wxEncryptedData , wxIv);
-                // console.log(data.unionId);
-                req.session.save();
-                // 返回数据
-                response.json('success');
+                // 调用service获取
+                userService.findOrCreateByOpenId(parsedData.openid, function(user){
+                    req.session.user = user;
+                    req.session.save();
+                    response.json('success');
+                });
             } catch (e) {
                 console.error(e.message);
             }
@@ -75,7 +69,10 @@ router.get('/wxlogin', function(req, response, next){
 
 // 测试用，获取session中的user
 router.get('/getSessionUser', function(req, res, next){
-    console.log(req.session.user.openid);
+    if(!req.session.user){
+        res.json({checkLogin:false});
+    }
+    console.log(req.session.user);
     res.send(req.session.user);
 });
 

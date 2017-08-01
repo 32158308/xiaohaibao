@@ -10,10 +10,6 @@ class UserService{
         return UserService.instance;
     }
 
-    login(){
-        return param;
-    }
-
     register(user){
         User.findOrCreate({
             where: {username: user.username}, 
@@ -25,8 +21,13 @@ class UserService{
 
     }
 
-    modify(){
-
+    findOrCreateByOpenId(openid, next){
+        User.findOrCreate({
+            where: {wechat: openid}
+        }).spread(function(user, created) {
+            // 将用户实例返回给router
+            next(user.get({plain: true}));
+        });
     }
 
 }
