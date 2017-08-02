@@ -44,6 +44,17 @@ app.use(session({
     saveUninitialized: false
 }));
 
+// 登录拦截
+// app.use(function(req, res, next){
+//   // 不做拦截控制的path
+//   var paths = ['/user/wxlogin'];
+//   if(!req.session.user && paths.indexOf(req.path)<0){
+//     res.json({checkLogin:false});
+//   }else{
+//     next();
+//   }
+// });
+
 // 加载路由控制
 var index = require('./routes/index');
 var user = require('./routes/user');

@@ -5,7 +5,7 @@ var uuid = require('uuid');
 // 小程序加密解密包
 // var WXBizDataCrypt = require('../wx/WXBizDataCrypt');
 var wxConfig = require('../wxConfig');
-var userService = require('../services/UserService').getInstance();
+var userService = require('../services/userService').getInstance();
 
 router.get('/', function(req, res, next) {
     res.send('respond with a resource');
